@@ -6,7 +6,7 @@ const bcrypt = require('bcrypt')
 
 //update
 router.put("/:id", async (req, res) => {
-    if (req.body.userID === req.params.id) {
+    if (req.user._id === req.params.id) {
         if (req.body.password) {
             const salt = await bcrypt.genSalt()
             req.body.password = await bcrypt.hash(req.body.password, salt)
@@ -30,7 +30,7 @@ router.put("/:id", async (req, res) => {
 //delete
 
 router.delete("/:id", async (req, res) => {
-    if (req.body.userId === req.params.id) {
+    if (req.user._id === req.params.id) {
         try {
 
             const user = await User.findById(req.params.id)
